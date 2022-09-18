@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/vue.js"></script>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="root">
+        <h2>学校信息</h2>
+        <h2>学校名称：{{school.name}}</h2>
+        <h2>学校地址：{{school.address}}</h2>
+        <!-- vue.set()api是不能直接把vm作为对象，也不能直接把vm里的data属性当作对象，必须是data里的对象 例：vue.set(vm.school,'leader','托雷纳')，而不能是vue.set(vm,'leader','托雷纳')和vue.set(vm.data,'leader','托雷纳') -->
+        <h2>校长是:{{school.leader}}</h2>
+        <hr>
+        <h2>学生信息</h2>
+        <button @click="add">点我追加性别</button>
+        <h2>学生姓名：{{student.name}}</h2>
+        <h2 v-if="student.sex">学生性别：{{student.sex}}</h2>
+        <h2>学生年龄：真实{{student.age.rage}}-对外{{student.age.sage}}</h2>
+        <h2>爱好</h2>
+        <ul>
+            <li v-for="h,index in student.hobby" :key="index">{{h}}</li>
+        </ul>
+        <h2>朋友们</h2>
+        <ul>
+            <li v-for="(p,index) in student.friends" :key="index">{{p.name}}-{{p.age}}</li>
+        </ul>
+    </div>
+
+    <script>
+
+        const vm = new Vue({
+            el: '#root',
+            data() {
+                return {
+                    school: {
+                        name: '托雷纳学院',
+                        address: '日本',
+                    },
+                    student: {
+                        name: '小栗帽',
+                        // sex: '男',可以用在控制台用vm.$set(vm._data.student,'sex','女')
+                        age: {
+                            rage: 16,
+                            sage: 18
+                        },
+                        hobby: [' 吃胡萝卜', '吃吃吃', '吃吃'],
+                        friends: [
+                            { name: '小海湾', age: 16 },
+                            { name: '特别周', age: 16 }
+                        ]
+                    }
+                }
+            },
+            methods: {
+                add() {
+                    vm.$set(vm.student, 'sex', '女')
+                }
+            },
+        })
+    </script>
+</body>
+
+</html>

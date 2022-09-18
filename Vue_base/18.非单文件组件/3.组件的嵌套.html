@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/vue.js"></script>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="root">
+
+    </div>
+    <script>
+        //定义student组件(简写形式)
+        const student = {
+            template: `
+             <div>
+                <h2>学生名称：{{name}}</h2>
+                <h2>学生年龄：{{age}}</h2>
+            </div>
+            `,
+            data() {
+                return {
+                    name: '小栗帽',
+                    age: 16
+                }
+            }
+        }
+
+        //定义school组件
+        const school = Vue.extend({
+            template: `
+             <div>
+                <h2>学校名称：{{name}}</h2>
+                <h2>学校地址：{{address}}</h2>
+                <student></student>
+            </div>
+            `,
+            data() {
+                return {
+                    name: '托雷森学院',
+                    address: 'Japan'
+                }
+            },
+
+            components: {
+                student
+            }
+
+
+        })
+
+        //定义nako组件
+        const nako = ({
+            template: `
+                <div>
+               <h1> {{msg}} </h1>
+                </div>
+            `,
+            data() {
+                return {
+                    msg: 'Hello nako!'
+                }
+            },
+        })
+
+        //定义app组件
+        const app = {
+            template: `
+                <div>
+               <school></school>
+                <nako></nako>
+                </div>
+            `,
+            components: {
+                school,
+                nako,
+            }
+        }
+        //创建vm
+        const vm = new Vue({
+            template: `<div> <app></app> </div>`,
+            el: '#root',
+            components: {
+                app
+            }
+        })
+
+    </script>
+</body>
+
+</html>

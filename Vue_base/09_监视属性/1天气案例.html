@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="../js/vue.js"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="root">
+        <h2>今天天气很{{Info}}</h2>
+        <!-- <button @click="changeWeather">切换天气</button> 直接调用vm里的方法 -->
+        <!-- <button @click="isHot=!isHot">切换天气</button> 绑定的事件的时候，可以写一些简单的语句 -->
+        <button @click="changeWeather">切换天气</button>
+    </div>
+
+    <script>
+        const vm = new Vue({
+            el: '#root',
+            data: function () {
+                return {
+                    isHot: true
+                }
+            },
+            methods: {
+                changeWeather: function () {
+                    this.isHot = !this.isHot
+                }//当用changeWeather时
+            },
+            computed: {
+                Info: function () {
+                    if (this.isHot == true)
+                        return '炎热'
+                    else
+                        return '寒冷'
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

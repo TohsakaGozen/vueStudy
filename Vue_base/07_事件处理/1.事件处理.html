@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="../js/vue.js"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 
+        事件的基本使用：
+            0.函数调用时会自动传event事件，即相关事件的调用信息
+            1.使用v-on:xxx或@xxx绑定事件名；
+            2.事件的回调需要配置在methods对象中，最终会在vm上；
+            3.methods中配置的函数，不要用箭头函数,否则this就不是vm了
+            4.methods中配置的函数，都是被Vue所管理的函数，this指向是 vm 或 组件实例对象；
+            5.@oclick="demo"和@click="demo($event)"效果一致，但带括号可以传参数。
+     -->
+    <div id="root">
+        <h2>欢迎来到{{name}}</h2>
+        <button v-on:click="showInfo1">点我提示信息（不传参）</button>
+        <!-- v-on:click简写 -->
+        <button @click="showInfo2(66,$event)">点我提示信息(可传参数66)</button>
+    </div>
+
+
+    <script>
+        const vm = new Vue({
+            el: '#root',
+            data: function () {
+                return {
+                    name: '虹咲女子学院'
+                }
+            },
+            methods: {
+                showInfo1(event) {//如果用箭头函数，则没有自己的this，需要向外层找寻this；所有被vm管理的函数，都不要用箭头函数
+                    // console.log(event.target)
+                    //console.log(this) 此处的this是vm（Vue实例对象）
+                    alert('你好，雪菜!')
+                },
+                showInfo2(number, event) {//如果用箭头函数，则没有自己的this，需要向外层找寻this；所有被vm管理的函数，都不要用箭头函数
+                    console.log(number, event)//可以从视图传参数,且视图用了占位符$event，就可以不丢失event
+                    //console.log(this) 此处的this是vm（Vue实例对象）
+                    //alert('你好，ksks!');
+
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

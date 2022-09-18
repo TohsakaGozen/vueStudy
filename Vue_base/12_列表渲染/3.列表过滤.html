@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/vue.js"></script>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="root">
+        <h3>赛马娘</h3>
+        <input v-model="keyword" type="text" placeholder="请输入搜索内容">
+        <ul>
+            <li v-for="p in filPersons" :key="p.id">{{p.name}}-{{p.age}}-{{p.sex}}</li>
+        </ul>
+    </div>
+
+    <script>
+
+        //用watch实现
+        //#region 
+        // const vm = new Vue({
+        //     el: '#root',
+        //     data() {
+        //         return {
+        //             keyword: '',
+        //             persons: [
+        //                 { id: '001', name: '小栗帽', age: 18, sex: '女' },
+        //                 { id: '002', name: '小海湾', age: 19, sex: '女' },
+        //                 { id: '003', name: '栗海湾', age: 19, sex: '女' },
+        //                 { id: '004', name: '小特别', age: 18, sex: '女' }
+        //             ],
+
+        //             filPersons: []
+        //         }
+        //     },
+        //     watch: {
+        //         keyword: {
+        //             immediate: true,
+        //             handler(newvalue) {
+        //                 this.filPersons = this.persons.filter((p) => {
+        //                     return p.name.indexOf(newvalue) != -1
+        //                 })
+        //             }
+
+        //         }
+        //     }
+        // })
+        //#endregion
+        const vm2 = new Vue({
+            el: '#root',
+            data() {
+                return {
+                    keyword: '',
+                    persons: [
+                        { id: '001', name: '小栗帽', age: 18, sex: '女' },
+                        { id: '002', name: '小海湾', age: 19, sex: '女' },
+                        { id: '003', name: '栗海湾', age: 19, sex: '女' },
+                        { id: '004', name: '小特别', age: 18, sex: '女' }
+                    ],
+
+                }
+            },
+            computed: {
+
+                filPersons() {
+                    return this.persons.filter((p) => {
+                        return p.name.indexOf(this.keyword) != -1
+                    })
+                }
+            },
+
+        })
+    </script>
+</body>
+
+</html>

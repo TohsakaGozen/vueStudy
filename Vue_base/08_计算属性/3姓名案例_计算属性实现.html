@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/vue.js"></script>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 
+        计算属性：
+            1.定义：要用的属性不存在，要通过已有属性计算得来
+            2.原理：底层接住了Object.defineproperty方法提供的getter和setter
+            3.get函数什么时候执行：
+                    1.初次读取时会执行一次
+                    2.当依赖的数据发生改变时会被再次调用
+            4.优势：与methods实现相比，computed内部有缓存机制（复用），效率更高，测试方便
+            5.备注：
+                    1.计算属性最终会出现在vm上，直接读取使用即可
+                    2.如果计算属性要被修改，那必须写set函数去响应修改，且set中要引起计算时依赖的数据发生改变
+     -->
+    <div id="root">
+        <!-- v-model双向数据绑定，常常使用在input表单元素中，默认值是value -->
+        姓:<input v-model="firstname" type="text">
+        <br>
+        名:<input v-model="lastname" type="text">
+        <br>
+        全 名：<span>{{fullname}}</span><br>
+        全 名：<span>{{fullname}}</span><br>
+        全 名：<span>{{fullname}}</span><br>
+        全 名：<span>{{fullname}}</span><br>
+
+        <!--computed有缓存机制，多次被使用时只调用一次get-->
+    </div>
+
+    <script>
+        // vue认为data里的数据都是属性：属性名：属性值
+        const vm = new Vue({
+            el: '#root',
+            data: function () {
+                return {
+                    firstname: '上原',
+                    lastname: '步梦',
+                }
+            },
+            computed: {
+                fullname: {
+                    //get:当有人读取fullname，get就会被调用，且返回值作为fullname的值
+                    get() {//get什么时候调用：1.初次读取fullname时；2.所依赖的数据发生变化时。
+                        console.log('fullname被读取了,get被调用了')
+                        return this.firstname + this.lastname//此处的this为vm
+                    },
+                    //set:当fullname被修改时调用setter，
+                    set(value) {
+                        console.log('fullname被修改了,set被调用了')
+                        const arr = value.split('-')
+                        this.firstname = arr[0]
+                        this.lastname = arr[1]
+                    }
+                }
+            }
+
+            //data与methods里的数据会直接出现在vm中，但computed里是数据被读取时让其调用getter，其return的返回值作为该数据的值并出现在vm上
+
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="../js/vue.js"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 数据代理：通过一个对象代理另一个对象中属性的操作（读或写） -->
+    <script>
+        let obj1 = {
+            x: 100
+        }
+        let obj2 = {
+            y: 200
+        }
+
+        Object.defineProperty(obj2, 'x', {//当有人通过obj2访问x时，就把obj1的x值给他
+            get() {
+                return obj1.x
+            },
+            set(value) {//当有人想更改obj2里x的值，就把obj1的x改为vue
+                obj1.x = value
+            }
+        })
+        console.log(obj1)
+        console.log(obj2)
+    </script>
+</body>
+
+</html>

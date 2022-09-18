@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/vue.js"></script>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 
+        收集表单数据：
+            若：<input type='text'/>,则v-model收集的就是value值，用户输入的就是value值
+            若：<input type='radio'/>,则v-model收集的是value值，且要给标签配置value值
+            若：<input type='checkbox'/>
+                1.没有配置input的value属性 那么收集的就是checked（勾选or未勾选，是布尔值）
+                2.配置input的value属性：
+                    （1）.v-model的初始值是非数组，那么收集的也是checked（勾选or未勾选）
+                    （2）.v-model的初始值是数组，那么收集的就是value构成的数组
+            备注：v-model的三个修饰符：
+                    lazy：失去焦点再收集数据
+                    number：输入字符串转为有效的数字
+                    trim：输入首位空格过滤
+     -->
+    <div id="root">
+        <form @submit.prevent="demo">
+            <label>账号：</label> <input v-model.trim="userInfo.account" type="text"><br><br>
+            <label>密码：</label> <input V-model="userInfo.password" type="password"><br><br>
+            <label>年龄：</label> <input V-model.number="userInfo.age" type="number">
+            <br><br>
+
+            性别:
+            男 <input type="radio" v-model="userInfo.sex" value="男" name="sex">
+            女 <input type="radio" v-model="userInfo.sex" value="女" name="sex"> <br><br>
+            爱好：
+            跑步<input type="checkbox" v-model="userInfo.hobby" value="跑步">
+            胡萝卜<input type="checkbox" v-model="userInfo.hobby" value="胡萝卜">
+            睡觉<input type="checkbox" v-model="userInfo.hobby" value="睡觉">
+            <br><br>
+
+            所属国家：<select v-model="userInfo.country">
+                <option value="">请选择国家</option>
+                <option value="日本">日本</option>
+                <option value="美国">美国</option>
+                <option value="英国">英国</option>
+                <option value="法国">法国</option>
+            </select><br><br>
+            其它信息：<br>
+            <textarea name="" id="" cols="30" rows="10" v-model.lazy="userInfo.other" value=""></textarea><br><br>
+            <input v-model="userInfo.agree" type="checkbox">
+            阅读并接受 <a href="http://www.bilibili.com">《用户协议》</a>
+            <button>提交</button>
+        </form>
+    </div>
+
+    <script>
+        const vm = new Vue({
+            el: '#root',
+            data() {
+                return {
+                    userInfo: {
+                        account: '',
+                        age: '',
+                        password: '',
+                        sex: '',
+                        hobby: [],
+                        country: '',
+                        other: '',
+                        agree: '',
+                    }
+                }
+            },
+
+            methods: {
+                demo() {
+                    console.log(JSON.stringify(this.userInfo))
+                }
+            },
+        })
+    </script>
+</body>
+
+</html>

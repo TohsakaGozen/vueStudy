@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>sessionStorage</h2>
+    <button onclick="saveDate()">点我保存一个数</button>
+    <button onclick="readDate()">点我读取一个数</button>
+    <button onclick="deleteDate()">点我删除一个数</button>  
+    <button onclick="deleteAllDate()">点我情空全部数</button>     
+
+    <script>
+        let p={name:'nako',age:18}
+
+        function saveDate(){
+            window.sessionStorage.setItem('msg','hello')
+            window.sessionStorage.setItem('msg2',66)
+             window.sessionStorage.setItem('person',JSON.stringify(p))
+        }
+
+         function readDate(){
+          console.log( sessionStorage.getItem('msg')) 
+          console.log( sessionStorage.getItem('msg2')) 
+          const result=sessionStorage.getItem('person')
+          console.log(JSON.parse(result))
+        }
+
+         function deleteDate(){
+           sessionStorage.removeItem('msg2')
+        }
+
+         function deleteAllDate(){
+           sessionStorage.clear()
+        }
+        
+    </script>
+</body>
+</html>

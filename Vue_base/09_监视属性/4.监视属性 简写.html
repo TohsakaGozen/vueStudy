@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="../js/vue.js"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="root">
+        <h2>今天天气很{{Info}}</h2>
+        <button @click="changeWeather">切换天气</button>
+        <h3>a的值是{{numbers.a}}</h3>
+        <button @click="numbers.a++">点我让b+1</button>
+        <h3>b的值是{{numbers.b}}</h3>
+        <button @click="numbers.b++">点我让b+1</button>
+    </div>
+
+    <script>
+        Vue.config.productionTip = false;
+        const vm = new Vue({
+            el: '#root',
+            data: function () {
+                return {
+                    isHot: true,
+                }
+            },
+            methods: {
+                changeWeather: function () {
+                    this.isHot = !this.isHot
+                }
+            },
+            computed: {
+                Info: function () {
+                    if (this.isHot == true)
+                        return '炎热'
+                    else
+                        return '寒冷'
+                }
+            },
+            watch: {
+                // //正常写法：
+                // isHot: {
+                //     handler(newView, oldView) {
+                //         console.log('isHot被改了 ', newView, oldView)
+                //     }
+                // },
+
+                //简写形式：
+                isHot(newView, oldView) {
+                    console.log('isHot被改了 ', newView, oldView)
+                }
+            }
+        })
+        //第二种监视方式的简写
+        // vm.$watch('isHot', {
+        //     isHot(newView, oldView) {
+        //         console.log('isHot被改了 ', newView, oldView)
+        //     }
+        // })
+
+    </script>
+</body>
+
+</html>

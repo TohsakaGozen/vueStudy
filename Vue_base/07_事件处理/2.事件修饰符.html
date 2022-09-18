@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/vue.js"></script>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 20px
+        }
+
+        .list {
+            width: 200px;
+            height: 200px;
+            background-color: aquamarine;
+            overflow: auto
+                /* 形成滚动条 */
+        }
+
+        li {
+            height: 100px;
+        }
+
+        .demo1 {
+            height: 50px;
+            background-color: aqua;
+        }
+
+        .box1 {
+            padding: 5px;
+            background-color: aqua;
+        }
+
+        .box2 {
+            padding: 5px;
+            background-color: rgb(245, 208, 123);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 
+        Vue中的事件修饰符：
+            1.prevent：阻止默认事件（常用）
+            2.stop：阻止事件冒泡（常用）
+            3.once：事件只发生一次（常用）
+            4.capture: 使用事件的捕获模式
+            5.self：只有event.target是当前操作的元素时才触发事件
+            6.passive：事件的默认行为立即执行，无需等待事件回调执行完毕
+     -->
+    <div id="root">
+        <h2>欢迎来到{{name}}</h2>
+
+
+        <!-- .prevent：阻止默认事件（常用） -->
+        <a @click.prevent="showInfo" href="https://to01-9g8e85s83429b3fb-1304731796.tcloudbaseapp.com/">点我提示信息</a>
+
+
+        <!-- .stop：阻止事件冒泡（常用） -->
+        <div @click="showInfo" class="demo1">
+            <button @click.stop="showInfo">点我提示信息</button>
+            <!-- 事件修饰符可以连续使用 -->
+            <a href="https://to01-9g8e85s83429b3fb-1304731796.tcloudbaseapp.com/"
+                @click.stop.prevent="showInfo">点我提示信息</a>
+        </div>
+
+
+        <!-- .once：事件只发生一次（常用） -->
+        <button @click.once="showInfo">点我提示信息</button>
+
+
+        <!-- .capture: 使用事件的捕获模式：事件的完整执行分为捕获和冒泡两个阶段，事件的处理是在冒泡阶段，
+            捕获阶段是由外向里的，而冒泡阶段是由里向外的。即如果不加capture，点击盒子2会先出现盒子2的事件，再出现盒子1的事件（内往外） 
+            如果加上capture，则会再进行捕获的阶段（捕获阶段是由外向里的）就让事件处理，即先出现1，再出现2
+        -->
+        <div class="box1" @click.capture='showMsg(1)'>
+            盒子1
+            <div class="box2" @click='showMsg(2)'>
+                盒子2
+            </div>
+        </div>
+
+
+        <!-- .self：只有event.target是当前操作的元素时才触发事件(也可以避免冒泡) -->
+        <div @click.self="showInfo" class="demo1">
+            <button @click="showInfo">点我提示信息</button>
+        </div>
+
+
+        <!-- .passive：事件的默认行为立即执行，无需等待事件回调执行完毕 -->
+        <ul @wheel.passive="demo" class="list">
+            <!-- 滚轮事件有两种：scroll与wheel：scroll是监听滚轮条是否发生移动；wheel是监听鼠标的滚轮是否运动 -->
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+        </ul>
+    </div>
+
+    <script>
+        const vm = new Vue({
+            el: '#root',
+            data: function () {
+                return {
+                    name: '虹咲女子学院'
+                }
+            },
+            methods: {
+                showInfo(e) {
+                    //  e.preventDefault();//阻止事件的默认行为,也可以用@click.prevent
+                    //  e.stopPropagation();//阻止事件的冒泡：即点块内部元素的事件，也会让外部元素的事件发生。也可以用@click.stop
+
+                    alert('你好呀ksks')
+                },
+                showMsg(msg) {
+                    console.log(msg)
+                },
+                demo() {
+                    for (let i = 0; i < 100000; i++) {
+                        console.log('滚动了')
+                    }
+                    console.log('滚累了')
+                }
+            },
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/vue.js"></script>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="root">
+        姓:<input v-model="firstname" type="text">
+        <br>
+        名:<input v-model="lastname" type="text">
+        <br>
+        全 名：<span>{{fullname()}}</span><br>
+        全 名：<span>{{fullname()}}</span><br>
+        全 名：<span>{{fullname()}}</span><br>
+        全 名：<span>{{fullname()}}</span><br>
+        <!-- methods没有缓存机制 -->
+    </div>
+
+    <script>
+        const vm = new Vue({
+            el: '#root',
+            data: function () {
+                return {
+                    firstname: '上原',
+                    lastname: '步梦'
+                }
+            },
+            methods: {
+                fullname() {
+                    console.log('我被调用了')
+                    return this.firstname + '-' + this.lastname
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

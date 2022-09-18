@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <script src="../js/vue.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 初识Vue：
+        1.想让Vue工作，就必须创建一个Vue实例，且要传入一个配置对象。
+        2.root容器里的代码依然符合html规格，只不过混入了一些特殊的Vue语法；
+        3.root容器里的代码被称为Vue模板。    （root容器模板经过Vue的解析，生成一个新的html样式）
+        4.容器与Vue实例之间是一对一的关系，不能多对一或一对多
+        5.真实开发中只有一个Vue实例，并且会配合着组件一起使用
+        6.{{xxx}}中的xxx数据要写js表达式，且xxx可以自动读取到data中的所有属性
+        7.一旦data中的数据发生改变，那么页面中用到的该数据的地方也会自动更新
+    -->
+
+    <!-- 注意区分：js表达式 和 js代码（语句）
+    1.表达式：一个表达式会生成一个值，可以放在任何一个需要值的地方
+        （1）.a
+        （2）.a+b
+        （3).demo(1)
+        （4）.x===y? 'a' : 'b'
+         (5).toUpperCase()---字母大写
+    2.js代码（语句）
+        （1）. if（）{}
+        （2）.for(){}    
+    -->
+
+    <!-- 准备好一个容器 -->
+    <div id="root">
+        <h1>Hello.{{name.toUpperCase()}} 现在的时间戳为{{Date.now()}}</h1>
+        <!-- 双花括号里可以写js表达式 -->
+        <h1>my age is {{age}}</h1>
+
+    </div>
+
+
+    <div id="demo">
+        <h1>Hello.{{name}}</h1>
+        <h1>my age is {{age}}</h1>
+    </div>
+    <!-- 多个容器被同一个实例绑定时，只有第一个实例有效 -->
+
+
+    <script>
+        //创建Vue实例
+        new Vue({
+            el: '#root', //el（即element（元素））用于指定当前Vue实例为哪个容器服务，值通常为css选择器字符串。
+            data: {//data用于存储数据，数据供el所指定的容器去使用，值我们先暂时写成一个对象。
+                name: 'Tohsaka我是Sill',
+                age: '18'
+            }
+        })
+
+        new Vue({
+            el: '#demo', //el用于指定当前Vue实例为哪个容器服务，值通常为css选择器字符串。
+            data: {//data用于存储数据，数据供el所指定的容器去使用，值我们先暂时写成一个对象。
+                name: 'Tohsaka我是nako',
+                age: '20'
+            }
+        })
+        // 同样，多个Vue实例对应一个容器时，只有第一个容器有效
+
+    </script>
+
+</body>
+
+</html>
